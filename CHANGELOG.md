@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.0 (2026-09-23)
+
+### Features
+
+* Initial STACKIT Redis module (legacy, superseded by valkey) ([ea0eeef](https://github.com/terraform-stackit-modules/terraform-stackit-redis/commit/ea0eeefea4907e533c75695cf5718f150d2a1483))
+
+### Bug Fixes
+
+* use a real redis plan name in the example ([75678cb](https://github.com/terraform-stackit-modules/terraform-stackit-redis/commit/75678cbbbfe7b0c8f3b3b811f2cb66e85e484041))
+
 ## [1.0.1](https://github.com/terraform-stackit-modules/terraform-repo-template/compare/v1.0.0...v1.0.1) (2026-09-09)
 
 ### Bug Fixes
