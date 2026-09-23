@@ -7,6 +7,31 @@ This file provides context and instructions for AI coding agents (Copilot, Curso
 This is a Terraform module for [STACKIT](https://www.stackit.de/en/), the cloud platform by Schwarz Group.
 It is part of the [terraform-stackit-modules](https://github.com/terraform-stackit-modules) organization, which aims to provide community-maintained, production-grade Terraform modules for STACKIT.
 
+### This module: redis
+
+Composite module for STACKIT **Redis** (instance + credentials), same shape as flex-mariadb.
+
+**Sub-modules**
+- `modules/instance` — `stackit_redis_instance` (toggled by `create_instance` via `count`).
+- `modules/credential` — `stackit_redis_credential` (`for_each` over `credentials`).
+
+**Key inputs** — `project_id` (req), `region`, `create_instance`/`instance_id`, `name`,
+`redis_version`, `plan_name`, `parameters` (object: sgw_acl, enable_monitoring, monitoring_instance_id,
+graphite, metrics_frequency, metrics_prefix, max_disk_threshold, maxclients, maxmemory_policy, syslog),
+`credentials` (map keyed by stable id: `{rotate_when_changed?}`).
+
+**Outputs** — `instance_id`, `plan_id`, `dashboard_url`, `credential_ids`, `credential_usernames`,
+`credential_passwords` (sensitive), `credential_uris` (sensitive).
+
+**Gotchas**
+- Redis has NO database/user resources — access is via `stackit_redis_credential` (auto-generated
+  username/password), like MariaDB.
+- `redis_instance` DOES take a `region` argument (id = project_id,region,instance_id), unlike
+  secretsmanager/dns — region is wired through.
+- `credentials` keyed by a stable id; instance_id (known-after-apply) is only an attribute, never a
+  for_each key. Root uses `coalesce(module.instance.instance_id, var.instance_id)`.
+- password/uri outputs are `sensitive = true`.
+
 ## Repository structure
 
 ```
