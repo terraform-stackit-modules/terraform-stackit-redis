@@ -13,7 +13,7 @@ module "redis" {
   project_id    = var.project_id
   name          = "example-redis"
   redis_version = "7"
-  plan_name     = "stackit-redis-single-4"
+  plan_name     = "stackit-redis-1.4.10-single"
 
   parameters = {
     sgw_acl = "0.0.0.0/0"
